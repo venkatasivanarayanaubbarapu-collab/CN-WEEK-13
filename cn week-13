@@ -1,0 +1,19 @@
+
+import pyshark
+
+# Capture packets from the network interface
+capture = pyshark.LiveCapture(interface='Wi-Fi')
+
+print("Starting packet capture...")
+
+# Capture 10 packets
+capture.sniff(packet_count=10)
+
+# Display captured packet details
+for packet in capture:
+    print("Protocol:", packet.highest_layer)
+    print("Source:", packet.ip.src if hasattr(packet, 'ip') else "N/A")
+    print("Destination:", packet.ip.dst if hasattr(packet, 'ip') else "N/A")
+    print("-" * 40)
+
+print("Packet capture completed.")
